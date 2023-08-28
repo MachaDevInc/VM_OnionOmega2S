@@ -1,0 +1,4 @@
+cd 
+wifisetup add -ssid 'YourSSID' -encr psk2 -password 'YourPassword'
+wget https://raw.githubusercontent.com/MachaDevInc/Vending-Machine/main/setup.sh --no-check-certificate
+sh setup.sh

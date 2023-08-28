@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Nutri-Stop</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<style>
+html {
+  font-family: Arial, Helvetica, sans-serif; 
+}
+
+h1 {
+  font-size: 1.4rem; 
+  color: white;
+}
+
+p { 
+  font-size: 0.8rem;
+}
+
+div { 
+	text-align: center;
+}
+.topnav { 
+  overflow: hidden; 
+  background-color: #3D805A;
+}
+
+button { 
+  border: none;
+  color: #FEFCFB;
+  background-color: #3D805A;
+  padding: 10px 15px;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  width: 100px;
+  margin-right: 2px;
+  border-radius: 4px;
+  transition-duration: 0.4s;
+}
+button:hover {
+  background-color: #6D805A;
+}
+
+.Front_Button {
+  font-size: 20px;
+  height: 100px;
+  width: 200px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  margin-left: 20px;
+  border-radius: 4px;
+}
+
+.content { 
+  padding: 3%;
+}
+
+.card-grid { 
+  max-width: 800px; 
+  margin: 0 auto; 
+  display: grid; 
+  grid-gap: 2rem; 
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.card { 
+  background-color: white; 
+  box-shadow: 2px 2px 12px 1px rgba(140,140,140,.5);
+}
+
+.card-title { 
+  font-size: 1rem;
+  font-weight: bold;
+  color: #3D805A
+}
+
+input[type=submit] {
+  border: none;
+  color: #FEFCFB;
+  background-color: #3D805A;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-right: 2px;
+  border-radius: 4px;
+  transition-duration: 0.4s;
+  }
+
+input[type=submit]:hover {
+  background-color: #6D805A;
+}
+
+input[type=text], input[type=number], select {
+  width: 50%;
+  padding: 12px 20px;
+  margin: 18px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=password], input[type=number], select {
+  width: 50%;
+  padding: 12px 20px;
+  margin: 18px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+label {
+  font-size: 1rem; 
+}
+
+.value {
+  font-size: 1rem;
+  color: #1282A2;  
+}
+
+.hidden { 
+  display: none; 
+}
+
+.visible { 
+  display: block; 
+}
+
+</style>
+
+<style>
+.alert {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+  opacity: 1;
+  transition: opacity 0.6s;
+  margin-bottom: 15px;
+}
+
+.alert.success {background-color: #04AA6D;}
+.alert.info {background-color: #2196F3;}
+.alert.warning {background-color: #ff9800;}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+</style>
+
+{% if not session['logged_in'] %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Nutri-Stop</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <div class="content">
+	  <form method="POST">
+	    <p>
+			<label for="username">Username:</label>
+			<input type="text" id="username" name="username"><br>
+			<label for="password">Password:</label>
+			<input type="password" id="password" name="password"><br>
+			<input type="submit" value="Log in">
+		</p>
+	  </form>
+  </div>
+  </body>
+</html>
+
+{% else %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Nutri-Stop</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+  {% if error %}
+  <div class="alert">
+    <span class="closebtn">&times;</span>  
+    <strong>Error!</strong> {{error}}
+  </div>
+  <script>
+    var close = document.getElementsByClassName("closebtn");
+    var i;
+    
+    for (i = 0; i < close.length; i++) {
+      close[i].onclick = function(){
+        var div = this.parentElement;
+        div.style.opacity = "0";
+        setTimeout(function(){ div.style.display = "none"; }, 600);
+      }
+    }
+  </script>
+  {% elif success %}
+  <div class="alert success">
+    <span class="closebtn">&times;</span>  
+    <strong>Success!</strong> {{success}}
+  </div>
+  <script>
+    var close = document.getElementsByClassName("closebtn");
+    var i;
+    
+    for (i = 0; i < close.length; i++) {
+      close[i].onclick = function(){
+        var div = this.parentElement;
+        div.style.opacity = "0";
+        setTimeout(function(){ div.style.display = "none"; }, 600);
+      }
+    }
+  </script>
+  {% endif %}
+
+  {% if not success %}
+
+  <div id="page1" class="page visible">
+    <div class="topnav">
+      <h1>Vending Machine</h1>
+    </div>
+    <div class="content">
+      <div class="card-grid">
+        <div class="card">
+          <p>
+            <button onclick="showPage('page2')" class="Front_Button">WiFi Manager</button>
+            <button onclick="showPage('page3')" class="Front_Button">Terminal Settings</button>
+            <button onclick="showPage('page4')" class="Front_Button">VM Configuration</button>
+          </p>
+      
+        </div>
+      </div>
+    </div>
+    <p>
+      <button onclick="logoutButton()" class="logout">Logout</button>
+    </p>
+  </div>
+
+  {% else %}
+
+  <div id="page1" class="page hidden">
+    <div class="topnav">
+      <h1>Vending Machine</h1>
+    </div>
+    <div class="content">
+      <div class="card-grid">
+        <div class="card">
+          <p>
+            <button onclick="showPage('page2')" class="Front_Button">WiFi Manager</button>
+            <button onclick="showPage('page3')" class="Front_Button">Terminal Settings</button>
+            <button onclick="showPage('page4')" class="Front_Button">VM Configuration</button>
+          </p>
+      
+        </div>
+      </div>
+    </div>
+    <p>
+      <button onclick="logoutButton()" class="logout">Logout</button>
+    </p>
+  </div>
+
+  <div id="page3-a" class="page visible">
+    <div class="topnav">
+      <h1>Terminal Settings</h1>
+    </div>
+    <div class="content">
+      <div class="card-grid">
+        <div class="card">
+          <form action="/submitReader" method="POST">
+            <p>
+              <h2>Create New Reader</h2>
+              <label for="reader_label">Reader Label</label>
+              <input type="text" id ="reader_label" name="reader_label"><br>
+              <label for="registration_code">Registration Code</label>
+              <input type="text" id ="registration_code" name="registration_code"><br>
+              <input type ="submit" value ="Add Terminal">
+            </p>
+          </form>
+      
+        </div>
+      </div>
+    </div>
+    <p>
+      <button onclick="showPage('page1')" class="logout">Back</button>
+    </p>
+  </div>
+
+  {% endif %}
+
+  <div id="page2" class="page hidden">
+    <div class="topnav">
+      <h1>Wi-Fi Manager for Vending Machine</h1>
+    </div>
+    <div class="content">
+      <div class="card-grid">
+        <div class="card">
+          <form action="/submitCredentials" method="POST">
+            <p>
+              <label for="ssid">Internet SSID</label>
+              <input type="text" id ="i_ssid" name="i_ssid"><br>
+              <label for="pass">Internent Password</label>
+              <input type="password" id ="i_pass" name="i_pass"><br>
+              <label for="vm_ssid">VM Local SSID</label>
+              <input type="text" id ="vm_ssid" name="vm_ssid"><br>
+              <label for="vm_pass">VM Local Password</label>
+              <input type="password" id ="vm_pass" name="vm_pass"><br>
+              <input type ="submit" value ="Submit">
+            </p>
+          </form>
+      
+        </div>
+      </div>
+    </div>
+    <p>
+      <button onclick="showPage('page1')" class="logout">Back</button>
+    </p>
+  </div>
+
+  <div id="page3" class="page hidden">
+    <div class="topnav">
+      <h1>Terminal Settings</h1>
+    </div>
+    <div class="content">
+      <div class="card-grid">
+        <div class="card">
+          <form action="/submitLocation" method="POST">
+            <p>
+              <h2>Create New Location</h2>
+              <label for="display_name">Display Name</label>
+              <input type="text" id ="display_name" name="display_name"><br>
+              <h3>Address</h3>
+              <label for="line1">Line 1</label>
+              <input type="text" id ="line1" name="line1"><br>
+              <label for="city">City</label>
+              <input type="text" id ="city" name="city"><br>
+              <label for="state">State</label>
+              <input type="text" id ="state" name="state"><br>
+              <label for="country">Country</label>
+              <input type="text" id ="country" name="country"><br>
+              <label for="postal_code">Postal Code</label>
+              <input type="text" id ="postal_code" name="postal_code"><br>
+              <input type ="submit" value ="Add Location">
+            </p>
+          </form>
+      
+        </div>
+      </div>
+    </div>
+    <p>
+      <button onclick="showPage('page1')" class="logout">Back</button>
+    </p>
+  </div>
+
+  <div id="page4" class="page hidden">
+    <div class="topnav">
+      <h1>Vending Machine Configuration</h1>
+    </div>
+    <div class="content">
+      <div class="card-grid">
+        <div class="card">
+          <form action="/submitVMConfig" method="POST">
+            <p>
+              <label for="LCUP">Left Compartment Unit Price (£)</label>
+              <input type="number" id ="left_compartment_unit_price" name="left_compartment_unit_price"><br>
+              <label for="RCUP">Right Compartment Unit Price (£)</label>
+              <input type="number" id ="right_compartment_unit_price" name="right_compartment_unit_price"><br>
+              <input type ="submit" value ="Submit">
+            </p>
+          </form>
+      
+        </div>
+      </div>
+    </div>
+    <p>
+      <button onclick="showPage('page1')" class="logout">Back</button>
+    </p>
+  </div>
+</body>
+</html>
+
+<script>
+function logoutButton() {
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", "/logout", true);
+  xhr.send();
+  for (let i = 0; i < 2; i++) {
+  setTimeout(function() {
+    if(i == 1)
+	  location.replace("/");
+    }, i * 2000);
+  }
+}
+
+function showPage(id) {
+  var pages = document.getElementsByClassName('page');
+  for (var i = 0; i < pages.length; i++) {
+      pages[i].classList.remove('visible');
+      pages[i].classList.add('hidden');
+  }
+  var page = document.getElementById(id);
+  page.classList.remove('hidden');
+  page.classList.add('visible');
+}
+</script>
+{% endif %}

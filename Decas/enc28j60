@@ -1,0 +1,41 @@
+<!-- Configure the ENC28J60 module: -->
+
+<!-- Edit the "/boot/config.txt" file: -->
+
+sudo nano /boot/config.txt
+<!-- Add the following line at the end of the file: -->
+
+dtoverlay=enc28j60
+<!-- Save the changes and reboot the Raspberry Pi.
+Test the connection:
+
+Check if the "enc28j60" interface is available: -->
+
+ifconfig
+<!-- You should see an interface named "enc28j60" or "eth1" (depending on your OS version). Configure the IP address, subnet mask, and gateway as needed, or use DHCP to obtain an IP address automatically.
+That's it! You have successfully added an ENC28J60 Ethernet module to your Raspberry Pi. Now you can use this Ethernet interface to communicate with your network. -->
+
+<!-- To configure your ENC28J60 Ethernet interface to use DHCP, follow these steps: -->
+
+<!-- Install the DHCP client: -->
+
+sudo apt-get install dhcpcd
+<!-- Edit the dhcpcd configuration file: -->
+
+sudo nano /etc/dhcpcd.conf
+<!-- Add the following lines at the end of the file to enable DHCP for the ENC28J60 interface (replace "enc28j60" with "eth1" if your interface is named differently): -->
+
+interface eth0
+ipv4only
+dhcp
+<!-- Save the changes and exit. -->
+
+<!-- Restart the dhcpcd service to apply the changes: -->
+
+sudo systemctl restart dhcpcd
+<!-- Verify that the interface has received an IP address: -->
+
+ifconfig eth0
+<!-- You should see an IP address assigned to the interface by the DHCP server. -->
+
+<!-- The ENC28J60 Ethernet interface is now configured to use DHCP. It will automatically obtain an IP address, subnet mask, and default gateway from your network's DHCP server. -->

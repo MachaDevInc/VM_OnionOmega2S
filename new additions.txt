@@ -1,0 +1,33 @@
+#HTML webpage hosting on onion omega2s (to change wifi credentials)
+
+what is HTTP and HTTPs?
+
+Hosting a webpage over a secured network (SSL and TLS)
+
+What is Python Flask
+
+What is Gunicorn
+
+What is nginx
+nginx configuration is in the file -> omega2s.conf
+
+How Python Flask, Gunicorn and nginx together serve a secured local web server
+commands used to install them:
+pip3 install flask
+pip3 install Flask-Session
+pip3 install gunicorn
+opkg install nginx
+
+What is threading library in python?
+
+Ther server structure in the directory is as the following:
+server/
+├── app.py
+└── templates/
+    ├── index.html
+
+app.py is a flask app that hosts the webpage and manages the routes and form data and saves it to config.json file.
+index.html is the html file 
+
+to run the gunicorn server as a service:
+use my_gunicorn_server (file)

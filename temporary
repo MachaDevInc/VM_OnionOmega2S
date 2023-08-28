@@ -1,0 +1,22 @@
+cd 
+wifisetup add -ssid 'YourSSID' -encr psk2 -password 'YourPassword'
+wifisetup add -ssid 'realme 8' -encr psk2 -password 'zxcvbnmm'
+wget https://raw.githubusercontent.com/MachaDevInc/Vending-Machine/main/setup.sh --no-check-certificate
+sh setup.sh
+
+
+///////////////////
+opkg install libopenssl
+opkg install openssl-util
+
+//////////////////////////
+ln -s /usr/bin/python3 /usr/bin/python
+
+/////////////////////
+{ "results": [ { "enabled": true, "ssid": "realme 8", "encryption": "psk2", "password": "zxcvbnmm" } ], "success": true }
+
+
+//////////////////////
+python3 -m esptool --chip esp32s2 --port /dev/ttyUSB0 --baud 921600  --before default_reset --after hard_reset write_flash --flash_mode dio --flash_size detect --flash_freq 40m 0x1000 /root/esp32s2/VM_ESP32-S2.ino.bootloader.bin 0x8000 /root/esp32s2/VM_ESP32-S2.ino.partitions.bin 0x10000 /root/esp32s2/VM_ESP32-S2.ino.bin
+
+python3 -m esptool --chip esp32s2 --port /dev/ttyUSB0 --baud 921600  --before default_reset --after hard_reset erase_flash
