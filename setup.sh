@@ -4,7 +4,7 @@ opkg update
 
 opkg install git-http
 
-git clone https://github.com/MachaDevInc/Vending-Machine.git
+git clone https://github.com/machadevrepos/VM_OnionOmega2S.git
 
 cp /root/Vending-Machine/* /root/
 
