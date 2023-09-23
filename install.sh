@@ -32,12 +32,12 @@ EOF
     cp /root/VM_OnionOmega2S/* /root/
     rm -r /root/VM_OnionOmega2S/
 
-    cp /root/omega2s.conf /etc/nginx/conf.d/
-    rm -r /root/omega2s.conf
+    # cp /root/omega2s.conf /etc/nginx/conf.d/
+    # rm -r /root/omega2s.conf
 
-    cp /root/my_gunicorn_server /etc/init.d/
-    rm -r /root/my_gunicorn_server
-    chmod +x /etc/init.d/my_gunicorn_server
+    # cp /root/my_gunicorn_server /etc/init.d/
+    # rm -r /root/my_gunicorn_server
+    # chmod +x /etc/init.d/my_gunicorn_server
 
     flag_update=/root/install_step
     cat /root/flag_one>$flag_update
