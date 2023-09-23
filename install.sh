@@ -27,7 +27,7 @@ EOF
 
     cd
 
-    git clone https://github.com/MachaDevInc/Vending-Machine.git
+    git clone https://github.com/MachaDevInc/VM_OnionOmega2S.git
 
     cp /root/Vending-Machine/* /root/
     rm -r /root/Vending-Machine/

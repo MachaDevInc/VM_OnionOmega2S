@@ -9,7 +9,7 @@ wifisetup priority -ssid "Click pick bilal 03115089320" -move top
 
 cd 
 wifisetup add -ssid 'YourSSID' -encr psk2 -password 'YourPassword'
-wget https://raw.githubusercontent.com/MachaDevInc/Vending-Machine/main/setup.sh --no-check-certificate
+wget https://raw.githubusercontent.com/MachaDevInc/VM_OnionOmega2S/main/setup.sh --no-check-certificate
 sh setup.sh
 
 cd 
