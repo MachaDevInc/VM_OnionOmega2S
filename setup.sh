@@ -10,6 +10,6 @@ cp /root/VM_OnionOmega2S/* /root/
 
 rm -r /root/VM_OnionOmega2S/
 
-cp /root/rclocal.txt /etc/rc.local
+# cp /root/rclocal.txt /etc/rc.local
 
 sh /root/install.sh

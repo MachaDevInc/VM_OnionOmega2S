@@ -7,6 +7,9 @@ wifisetup priority -ssid Machadev -move top
 wifisetup add -ssid "Click pick bilal 03115089320" -encr psk2 -password "19052005"
 wifisetup priority -ssid "Click pick bilal 03115089320" -move top
 
+wifisetup add -ssid "realme 8" -encr psk2 -password "zxcvbnmm"
+wifisetup priority -ssid "realme 8" -move top
+
 cd 
 wifisetup add -ssid 'YourSSID' -encr psk2 -password 'YourPassword'
 wget https://raw.githubusercontent.com/MachaDevInc/VM_OnionOmega2S/master/setup.sh --no-check-certificate
