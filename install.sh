@@ -1,4 +1,4 @@
-output=$(cat /root/install_step)
+output=$(cat /VM/install_step)
 if [ "$output" != 1 ] && [ "$output" != 2 ]; then
     echo "Partitioning the memory and setting up swap memory"
     # opkg update
@@ -14,13 +14,16 @@ EOF
     y
 EOF
 
+    mkswap /dev/mmcblk0p1
+    swapon /dev/mmcblk0p1
+
     /etc/init.d/fstab enable
     block detect > /etc/config/fstab
 
     mount /dev/mmcblk0p2 /overlay
 
-    flag_update=/root/install_step
-    cat /root/flag_one>$flag_update
+    flag_update=/VM/install_step
+    cat /VM/flag_one>$flag_update
 
     reboot && exit
 fi
