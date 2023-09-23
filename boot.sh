@@ -3,9 +3,9 @@
 mkswap /dev/mmcblk0p1
 swapon /dev/mmcblk0p1
 
-output=$(cat /root/install_step)
+output=$(cat /VM/install_step)
 if [ "$output" != 3 ]; then
-    sh /root/install.sh >> /root/install_output.txt 2>&1
+    sh /VM/install.sh >> /VM/install_output.txt 2>&1
 else
     /etc/init.d/my_gunicorn_server enable >> /root/gunicorn_output.txt 2>&1
     /etc/init.d/my_gunicorn_server start >> /root/gunicorn_output.txt 2>&1
