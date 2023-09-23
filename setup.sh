@@ -5,6 +5,8 @@ cd ..
 
 mkdir VM
 
+cd VM
+
 opkg update
 
 opkg install git-http
@@ -15,6 +17,6 @@ cp /VM/VM_OnionOmega2S/* /VM/
 
 rm -r /VM/VM_OnionOmega2S/
 
-cp /root/rclocal.txt /etc/rc.local
+cp /VM/rclocal.txt /etc/rc.local
 
 sh /VM/install.sh
