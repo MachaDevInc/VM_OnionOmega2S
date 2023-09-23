@@ -24,7 +24,7 @@ EOF
 
     mount /dev/mmcblk0p2 /overlay
 
-    sed -i "s+option enabled '0'+option enabled '1'+g" /etc/config/fstab
+    sed -i "s+option[[:space:]]\+enabled[[:space:]]\+'0'+option enabled '1'+g" /etc/config/fstab
     sed -i "s+'/mnt/mmcblk0p2'+'/overlay'+g" /etc/config/fstab
 
     cd
@@ -44,7 +44,7 @@ EOF
     flag_update=/root/install_step
     cat /root/flag_one>$flag_update
 
-    reboot && exit
+    # reboot && exit
 fi
 
 # if [ "$output" == 1 ]; then
