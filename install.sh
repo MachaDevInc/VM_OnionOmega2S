@@ -14,6 +14,8 @@ EOF
     y
 EOF
 
+    sleep 5
+    
     mkswap /dev/mmcblk0p1
     swapon /dev/mmcblk0p1
 
