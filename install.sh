@@ -14,8 +14,20 @@ EOF
     y
 EOF
 
-    sleep 5
-    
+    /etc/init.d/fstab enable
+    block detect > /etc/config/fstab
+
+    mount /dev/mmcblk0p2 /overlay
+
+    flag_update=/root/install_step
+    cat /root/flag_one>$flag_update
+
+    reboot && exit
+fi
+
+if [ "$output" == 1 ]; then
+    echo "Downloading repository and modifying /etc/config/fstab"
+
     mkswap /dev/mmcblk0p1
     swapon /dev/mmcblk0p1
 
@@ -34,17 +46,10 @@ EOF
     cp /root/VM_OnionOmega2S/* /root/
     rm -r /root/VM_OnionOmega2S/
 
-    # cp /root/omega2s.conf /etc/nginx/conf.d/
-    # rm -r /root/omega2s.conf
-
-    # cp /root/my_gunicorn_server /etc/init.d/
-    # rm -r /root/my_gunicorn_server
-    # chmod +x /etc/init.d/my_gunicorn_server
-
     flag_update=/root/install_step
-    cat /root/flag_one>$flag_update
+    cat /root/flag_two>$flag_update
 
-    # reboot && exit
+    reboot && exit
 fi
 
 # if [ "$output" == 1 ]; then
@@ -70,6 +75,13 @@ fi
 
 #     /etc/init.d/nginx restart
 #     /etc/init.d/my_gunicorn_server enable
+
+#     cp /root/omega2s.conf /etc/nginx/conf.d/
+#     rm -r /root/omega2s.conf
+
+#     cp /root/my_gunicorn_server /etc/init.d/
+#     rm -r /root/my_gunicorn_server
+#     chmod +x /etc/init.d/my_gunicorn_server
 
 #     git clone https://github.com/MachaDevInc/esp32s2.git
 #     python3 -m esptool --chip esp32s2 --port /dev/ttyUSB0 --baud 921600  --before default_reset --after hard_reset write_flash --flash_mode dio --flash_size detect --flash_freq 40m 0x1000 /root/esp32s2/VM_ESP32-S2.ino.bootloader.bin 0x8000 /root/esp32s2/VM_ESP32-S2.ino.partitions.bin 0x10000 /root/esp32s2/VM_ESP32-S2.ino.bin
