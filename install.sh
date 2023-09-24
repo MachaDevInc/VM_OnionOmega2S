@@ -14,22 +14,53 @@ EOF
     y
 EOF
 
-    mkswap /dev/mmcblk0p1
-    swapon /dev/mmcblk0p1
+    # mkswap /dev/mmcblk0p1
+    # swapon /dev/mmcblk0p1
 
-    /etc/init.d/fstab enable
-    block detect > /etc/config/fstab
+    # /etc/init.d/fstab enable
+    # block detect > /etc/config/fstab
 
-    mount /dev/mmcblk0p2 /overlay
+    # mount /dev/mmcblk0p2 /overlay
 
-    flag_update=/VM/install_step
-    cat /VM/flag_one>$flag_update
+    # Update the flag to indicate that step 1 is complete
+    echo 1 > /VM/install_step
 
     reboot && exit
 fi
 
 # if [ "$output" == 1 ]; then
-#     echo "Downloading repository and modifying /etc/config/fstab"
+#     echo "Mounting /dev/mmcblk0p2 at /mnt/temp_overlay and copying original overlay to it"
+
+#     # mkswap /dev/mmcblk0p1
+#     # swapon /dev/mmcblk0p1
+
+#     # /etc/init.d/fstab enable
+#     # block detect > /etc/config/fstab
+
+#     mount /dev/mmcblk0p2 /mnt/temp_overlay
+
+#     rsync -av /overlay/ /mnt/temp_overlay/
+
+#     umount /mnt/temp_overlay
+
+#     # sed -i "s+option[[:space:]]\+enabled[[:space:]]\+'0'+option enabled '1'+g" /etc/config/fstab
+#     # sed -i "s+'/mnt/mmcblk0p2'+'/overlay'+g" /etc/config/fstab
+
+#     # cd
+
+#     # git clone https://github.com/MachaDevInc/VM_OnionOmega2S.git
+
+#     # cp /root/VM_OnionOmega2S/* /root/
+#     # rm -r /root/VM_OnionOmega2S/
+
+#     # Update the flag to indicate that step 2 is complete
+#     echo 2 > /VM/install_step
+
+#     reboot && exit
+# fi
+
+# if [ "$output" == 2 ]; then
+#     echo "Mounting /dev/mmcblk0p2 at /overlay"
 
 #     mkswap /dev/mmcblk0p1
 #     swapon /dev/mmcblk0p1
@@ -39,18 +70,8 @@ fi
 
 #     mount /dev/mmcblk0p2 /overlay
 
-#     sed -i "s+option[[:space:]]\+enabled[[:space:]]\+'0'+option enabled '1'+g" /etc/config/fstab
-#     sed -i "s+'/mnt/mmcblk0p2'+'/overlay'+g" /etc/config/fstab
-
-#     cd
-
-#     git clone https://github.com/MachaDevInc/VM_OnionOmega2S.git
-
-#     cp /root/VM_OnionOmega2S/* /root/
-#     rm -r /root/VM_OnionOmega2S/
-
-#     flag_update=/VM/install_step
-#     cat /VM/flag_two>$flag_update
+#     # Update the flag to indicate that step 3 is complete
+#     echo 3 > /VM/install_step
 
 #     reboot && exit
 # fi
