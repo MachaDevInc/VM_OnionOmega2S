@@ -45,6 +45,11 @@ if [ "$output" == 1 ]; then
 
     umount /mnt/temp_overlay
 
+    /etc/init.d/fstab enable
+    block detect > /etc/config/fstab
+
+    mount /dev/mmcblk0p2 /overlay
+
     # sed -i "s+option[[:space:]]\+enabled[[:space:]]\+'0'+option enabled '1'+g" /etc/config/fstab
     # sed -i "s+'/mnt/mmcblk0p2'+'/overlay'+g" /etc/config/fstab
 
@@ -63,9 +68,6 @@ fi
 
 if [ "$output" == 2 ]; then
     echo "Mounting /dev/mmcblk0p2 at /overlay"
-
-    mkswap /dev/mmcblk0p1
-    swapon /dev/mmcblk0p1
 
     /etc/init.d/fstab enable
     block detect > /etc/config/fstab
