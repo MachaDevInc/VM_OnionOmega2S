@@ -108,7 +108,7 @@ if [ "$output" == 3 ]; then
     pip3 install pyserial
     pip3 install esptool
 
-    opkg install python3-pyqt5
+    # opkg install python3-pyqt5
 
     pip3 install flask
     pip3 install Flask-Session
