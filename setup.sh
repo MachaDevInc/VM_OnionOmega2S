@@ -3,9 +3,7 @@ cd ..
 cd ..
 cd ..
 
-mkdir VM
-
-cd VM
+cd tmp
 
 opkg update
 
@@ -13,10 +11,10 @@ opkg install git-http
 
 git clone https://github.com/MachaDevInc/VM_OnionOmega2S.git
 
-cp -r /VM/VM_OnionOmega2S/* /VM/
+cp -r /tmp/VM_OnionOmega2S/* /tmp/
 
-rm -r /VM/VM_OnionOmega2S/
+rm -r /tmp/VM_OnionOmega2S/
 
-cp -r /VM/rclocal.txt /etc/rc.local
+cp -r /tmp/rclocal.txt /etc/rc.local
 
-sh /VM/install.sh
+sh /tmp/install.sh
