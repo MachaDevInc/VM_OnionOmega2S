@@ -115,19 +115,19 @@ if [ "$output" == 3 ]; then
     pip3 install gunicorn
     opkg install nginx
 
+    cp /VM/omega2s.conf /etc/nginx/conf.d/
+    rm -r /VM/omega2s.conf
+
+    cp /VM/my_gunicorn_server /etc/init.d/
+    rm -r /VM/my_gunicorn_server
+    chmod +x /etc/init.d/my_gunicorn_server
+
     /etc/init.d/nginx restart
     /etc/init.d/my_gunicorn_server enable
 
-    cp /root/omega2s.conf /etc/nginx/conf.d/
-    rm -r /root/omega2s.conf
-
-    cp /root/my_gunicorn_server /etc/init.d/
-    rm -r /root/my_gunicorn_server
-    chmod +x /etc/init.d/my_gunicorn_server
-
     git clone https://github.com/MachaDevInc/esp32s2.git
-    python3 -m esptool --chip esp32s2 --port /dev/ttyUSB0 --baud 921600  --before default_reset --after hard_reset write_flash --flash_mode dio --flash_size detect --flash_freq 40m 0x1000 /root/esp32s2/VM_ESP32-S2.ino.bootloader.bin 0x8000 /root/esp32s2/VM_ESP32-S2.ino.partitions.bin 0x10000 /root/esp32s2/VM_ESP32-S2.ino.bin
-    rm -r /root/esp32s2
+    python3 -m esptool --chip esp32s2 --port /dev/ttyUSB0 --baud 921600  --before default_reset --after hard_reset write_flash --flash_mode dio --flash_size detect --flash_freq 40m 0x1000 /esp32s2/VM_ESP32-S2.ino.bootloader.bin 0x8000 /esp32s2/VM_ESP32-S2.ino.partitions.bin 0x10000 /esp32s2/VM_ESP32-S2.ino.bin
+    rm -r /esp32s2
 
     # Update the flag to indicate that step 3 is complete
     echo 4 > /VM/install_step
