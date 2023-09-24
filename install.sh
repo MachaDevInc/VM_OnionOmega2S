@@ -28,32 +28,32 @@ EOF
     reboot && exit
 fi
 
-if [ "$output" == 1 ]; then
-    echo "Downloading repository and modifying /etc/config/fstab"
+# if [ "$output" == 1 ]; then
+#     echo "Downloading repository and modifying /etc/config/fstab"
 
-    mkswap /dev/mmcblk0p1
-    swapon /dev/mmcblk0p1
+#     mkswap /dev/mmcblk0p1
+#     swapon /dev/mmcblk0p1
 
-    /etc/init.d/fstab enable
-    block detect > /etc/config/fstab
+#     /etc/init.d/fstab enable
+#     block detect > /etc/config/fstab
 
-    mount /dev/mmcblk0p2 /overlay
+#     mount /dev/mmcblk0p2 /overlay
 
-    sed -i "s+option[[:space:]]\+enabled[[:space:]]\+'0'+option enabled '1'+g" /etc/config/fstab
-    sed -i "s+'/mnt/mmcblk0p2'+'/overlay'+g" /etc/config/fstab
+#     sed -i "s+option[[:space:]]\+enabled[[:space:]]\+'0'+option enabled '1'+g" /etc/config/fstab
+#     sed -i "s+'/mnt/mmcblk0p2'+'/overlay'+g" /etc/config/fstab
 
-    cd
+#     cd
 
-    git clone https://github.com/MachaDevInc/VM_OnionOmega2S.git
+#     git clone https://github.com/MachaDevInc/VM_OnionOmega2S.git
 
-    cp /root/VM_OnionOmega2S/* /root/
-    rm -r /root/VM_OnionOmega2S/
+#     cp /root/VM_OnionOmega2S/* /root/
+#     rm -r /root/VM_OnionOmega2S/
 
-    flag_update=/root/install_step
-    cat /root/flag_two>$flag_update
+#     flag_update=/VM/install_step
+#     cat /VM/flag_two>$flag_update
 
-    reboot && exit
-fi
+#     reboot && exit
+# fi
 
 # if [ "$output" == 1 ]; then
 #     echo "Downloading the packages and libraries"
