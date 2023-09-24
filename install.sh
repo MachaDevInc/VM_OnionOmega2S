@@ -93,6 +93,10 @@ fi
 if [ "$output" == 3 ]; then
     echo "Downloading the packages and libraries"
 
+    sleep 35
+
+    cp /VM/distfeeds.conf /etc/opkg/distfeeds.conf
+
     opkg update
     opkg install python3-pip
     opkg install python3-setuptools
