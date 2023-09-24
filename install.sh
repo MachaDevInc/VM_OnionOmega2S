@@ -1,4 +1,4 @@
-output=$(cat /tmp/install_step)
+output=$(cat /VM/install_step)
 if [ "$output" != 1 ] && [ "$output" != 2 ]; then
     echo "Partitioning the memory and setting up swap memory"
     # opkg update
@@ -22,8 +22,8 @@ EOF
 
     mount /dev/mmcblk0p2 /overlay
 
-    flag_update=/tmp/install_step
-    cat /tmp/flag_one>$flag_update
+    flag_update=/VM/install_step
+    cat /VM/flag_one>$flag_update
 
     reboot && exit
 fi
@@ -42,15 +42,15 @@ fi
 #     sed -i "s+option[[:space:]]\+enabled[[:space:]]\+'0'+option enabled '1'+g" /etc/config/fstab
 #     sed -i "s+'/mnt/mmcblk0p2'+'/overlay'+g" /etc/config/fstab
 
-#     # cd
+#     cd
 
-#     # git clone https://github.com/MachaDevInc/VM_OnionOmega2S.git
+#     git clone https://github.com/MachaDevInc/VM_OnionOmega2S.git
 
-#     # cp /root/VM_OnionOmega2S/* /root/
-#     # rm -r /root/VM_OnionOmega2S/
+#     cp /root/VM_OnionOmega2S/* /root/
+#     rm -r /root/VM_OnionOmega2S/
 
-#     flag_update=/tmp/install_step
-#     cat /tmp/flag_two>$flag_update
+#     flag_update=/VM/install_step
+#     cat /VM/flag_two>$flag_update
 
 #     reboot && exit
 # fi
