@@ -21,4 +21,4 @@ rm -r /VM/VM_OnionOmega2S/
 
 cp -r /VM/rclocal.txt /etc/rc.local
 
-bash /VM/install.sh
+sh /VM/install.sh

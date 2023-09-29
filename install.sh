@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Function to check internet connectivity
 check_internet() {
     while true; do
@@ -27,7 +25,9 @@ opkg_update_retry() {
     local max_retries=5  # number of times to retry opkg update
     local delay=10  # delay (in seconds) between retries
 
-    for ((i = 1; i <= max_retries; i++)); do
+    i=1
+    while [ "$i" -le "$max_retries" ]; do
+        i=$((i + 1))
         # Uncomment the following line if you want to check for internet connectivity before each retry
         # check_internet
         
