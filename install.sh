@@ -1,3 +1,23 @@
+# Function to check internet connectivity
+check_internet() {
+    while true; do
+        ping -c 1 google.com &> /dev/null && return
+        echo "Waiting for internet connectivity..."
+        sleep 10
+    done
+}
+
+# Function to retry pip installation in case of failure
+pip_install_retry() {
+    local package="$1"
+    while true; do
+        check_internet
+        pip3 install "$package" && return
+        echo "Failed to install $package. Retrying in 10 seconds..."
+        sleep 10
+    done
+}
+
 output=$(cat /VM/install_step)
 if [ "$output" != 1 ] && [ "$output" != 2 ] && [ "$output" != 3 ] && [ "$output" != 4 ]; then
     echo "Partitioning the memory and setting up swap memory"
@@ -97,23 +117,53 @@ if [ "$output" == 3 ]; then
 
     cp /VM/distfeeds.conf /etc/opkg/distfeeds.conf
 
+    # opkg update
+    # opkg install python3-pip
+    # opkg install python3-setuptools
+    # opkg install python3-cryptography
+
+    # pip3 install --upgrade pip
+    # pip3 install stripe
+    # pip3 install python-dotenv
+    # pip3 install pyserial
+    # pip3 install esptool
+
+    # pip3 install flask
+    # pip3 install Flask-Session
+    # pip3 install gunicorn
+    # opkg install nginx
+
     opkg update
-    opkg install python3-pip
-    opkg install python3-setuptools
-    opkg install python3-cryptography
 
-    pip3 install --upgrade pip
-    pip3 install stripe
-    pip3 install python-dotenv
-    pip3 install pyserial
-    pip3 install esptool
+    # Retry opkg installs 
+    while ! opkg install python3-pip; do
+        echo "Failed to install python3-pip via opkg. Retrying in 10 seconds..."
+        sleep 10
+    done
 
-    # opkg install python3-pyqt5
+    while ! opkg install python3-setuptools; do
+        echo "Failed to install python3-setuptools via opkg. Retrying in 10 seconds..."
+        sleep 10
+    done
 
-    pip3 install flask
-    pip3 install Flask-Session
-    pip3 install gunicorn
-    opkg install nginx
+    while ! opkg install python3-cryptography; do
+        echo "Failed to install python3-cryptography via opkg. Retrying in 10 seconds..."
+        sleep 10
+    done
+
+    while ! opkg install nginx; do
+        echo "Failed to install python3-cryptography via opkg. Retrying in 10 seconds..."
+        sleep 10
+    done
+    
+    pip_install_retry --upgrade pip
+    pip_install_retry stripe
+    pip_install_retry python-dotenv
+    pip_install_retry pyserial
+    pip_install_retry esptool
+    pip_install_retry flask
+    pip_install_retry Flask-Session
+    pip_install_retry gunicorn
 
     cp /VM/omega2s.conf /etc/nginx/conf.d/
     rm -r /VM/omega2s.conf
