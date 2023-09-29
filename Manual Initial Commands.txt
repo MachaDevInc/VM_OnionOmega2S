@@ -8,6 +8,10 @@ wifisetup add -ssid "Click pick bilal 03115089320" -encr psk2 -password "1905200
 wifisetup priority -ssid "Click pick bilal 03115089320" -move top
 
 wifisetup add -ssid "realme 8" -encr psk2 -password "zxcvbnmm"
+sleep 10
+wget https://raw.githubusercontent.com/MachaDevInc/VM_OnionOmega2S/master/setup.sh --no-check-certificate
+sh setup.sh
+
 wifisetup priority -ssid "realme 8" -move top
 
 cd 
