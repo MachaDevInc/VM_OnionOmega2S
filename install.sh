@@ -18,6 +18,25 @@ pip_install_retry() {
     done
 }
 
+opkg_update_retry() {
+    local max_retries=5  # number of times to retry opkg update
+    local delay=10  # delay (in seconds) between retries
+
+    for ((i = 1; i <= max_retries; i++)); do
+        # Uncomment the following line if you want to check for internet connectivity before each retry
+        # check_internet
+        
+        opkg update && return  # if opkg update succeeds, exit the function
+
+        # If we're here, opkg update failed
+        echo "Failed to run 'opkg update'. Attempt $i of $max_retries."
+        sleep "$delay"
+    done
+
+    echo "Failed to run 'opkg update' after $max_retries attempts."
+    exit 1  # Exit the script or handle this failure differently if you want
+}
+
 output=$(cat /VM/install_step)
 if [ "$output" != 1 ] && [ "$output" != 2 ] && [ "$output" != 3 ] && [ "$output" != 4 ]; then
     echo "Partitioning the memory and setting up swap memory"
@@ -133,7 +152,7 @@ if [ "$output" == 3 ]; then
     # pip3 install gunicorn
     # opkg install nginx
 
-    opkg update
+    opkg_update_retry  # use the fail-safe opkg update function
 
     # Retry opkg installs 
     while ! opkg install python3-pip; do
