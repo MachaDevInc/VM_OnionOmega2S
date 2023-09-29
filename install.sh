@@ -14,9 +14,9 @@ pip_install_retry() {
     while true; do
         check_internet
         if [ "$cmd" == "--upgrade" ]; then
-            pip3 install --upgrade "$package" && return
+            python3 -m pip install --upgrade "$package" && return
         else
-            pip3 install "$package" && return
+            python3 -m pip install "$package" && return
         fi
         echo "Failed to install $package. Retrying in 10 seconds..."
         sleep 10
