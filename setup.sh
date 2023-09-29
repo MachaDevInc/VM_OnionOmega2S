@@ -3,6 +3,8 @@ cd ..
 cd ..
 cd ..
 
+echo heartbeat > /sys/class/leds/omega2p\:amber\:system/trigger
+
 mkdir VM
 
 cd VM
