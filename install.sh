@@ -7,12 +7,15 @@ check_internet() {
     done
 }
 
-# Function to retry pip installation in case of failure
 pip_install_retry() {
     local package="$1"
     while true; do
         check_internet
-        pip3 install "$package" && return
+        if [ "$package" == "--upgrade pip" ]; then
+            pip3 install --upgrade pip && return
+        else
+            pip3 install "$package" && return
+        fi
         echo "Failed to install $package. Retrying in 10 seconds..."
         sleep 10
     done
