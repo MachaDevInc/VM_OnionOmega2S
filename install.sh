@@ -8,11 +8,13 @@ check_internet() {
 }
 
 pip_install_retry() {
-    local package="$1"
+    local cmd="$1"
+    local package="$2"
+
     while true; do
         check_internet
-        if [ "$package" == "--upgrade pip" ]; then
-            pip3 install --upgrade pip && return
+        if [ "$cmd" == "--upgrade" ]; then
+            pip3 install --upgrade "$package" && return
         else
             pip3 install "$package" && return
         fi
@@ -180,14 +182,14 @@ if [ "$output" == 3 ]; then
         sleep 10
     done
     
-    pip_install_retry --upgrade pip
-    pip_install_retry stripe
-    pip_install_retry python-dotenv
-    pip_install_retry pyserial
-    pip_install_retry esptool
-    pip_install_retry flask
-    pip_install_retry Flask-Session
-    pip_install_retry gunicorn
+    pip_install_retry "--upgrade" "pip"
+    pip_install_retry "" "stripe"
+    pip_install_retry "" "python-dotenv"
+    pip_install_retry "" "pyserial"
+    pip_install_retry "" "esptool"
+    pip_install_retry "" "flask"
+    pip_install_retry "" "Flask-Session"
+    pip_install_retry "" "gunicorn"
 
     cp /VM/omega2s.conf /etc/nginx/conf.d/
     rm -r /VM/omega2s.conf
