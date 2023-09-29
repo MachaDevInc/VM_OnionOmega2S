@@ -47,6 +47,7 @@ opkg_update_retry() {
 output=$(cat /VM/install_step)
 if [ "$output" != 1 ] && [ "$output" != 2 ] && [ "$output" != 3 ] && [ "$output" != 4 ]; then
     echo "Partitioning the memory and setting up swap memory"
+    echo heartbeat > /sys/class/leds/omega2p\:amber\:system/trigger
     # opkg update
     # opkg install fdisk kmod-fs-ext4 e2fsprogs swap-utils block-mount
     # umount /dev/mmcblk0
@@ -76,6 +77,7 @@ fi
 
 if [ "$output" == 1 ]; then
     echo "Mounting /dev/mmcblk0p2 at /mnt/temp_overlay and copying original overlay to it"
+    echo heartbeat > /sys/class/leds/omega2p\:amber\:system/trigger
 
     # mkswap /dev/mmcblk0p1
     # swapon /dev/mmcblk0p1
@@ -114,6 +116,7 @@ fi
 
 if [ "$output" == 2 ]; then
     echo "Mounting /dev/mmcblk0p2 at /overlay"
+    echo heartbeat > /sys/class/leds/omega2p\:amber\:system/trigger
 
     /etc/init.d/fstab enable
     block detect > /etc/config/fstab
@@ -127,6 +130,8 @@ if [ "$output" == 2 ]; then
 
     git clone https://github.com/MachaDevInc/VM_OnionOmega2S.git
 
+    echo heartbeat > /sys/class/leds/omega2p\:amber\:system/trigger
+
     cp /root/VM_OnionOmega2S/* /root/
     rm -r /root/VM_OnionOmega2S/
 
@@ -139,7 +144,15 @@ fi
 if [ "$output" == 3 ]; then
     echo "Downloading the packages and libraries"
 
-    sleep 35
+    echo heartbeat > /sys/class/leds/omega2p\:amber\:system/trigger
+
+    counter=0
+
+    while [ $counter -lt 35 ]; do
+        sleep 1
+        echo heartbeat > /sys/class/leds/omega2p\:amber\:system/trigger
+        counter=$((counter + 1))
+    done
 
     cp /VM/distfeeds.conf /etc/opkg/distfeeds.conf
 
@@ -164,21 +177,25 @@ if [ "$output" == 3 ]; then
     # Retry opkg installs 
     while ! opkg install python3-pip; do
         echo "Failed to install python3-pip via opkg. Retrying in 10 seconds..."
+        echo heartbeat > /sys/class/leds/omega2p\:amber\:system/trigger
         sleep 10
     done
 
     while ! opkg install python3-setuptools; do
         echo "Failed to install python3-setuptools via opkg. Retrying in 10 seconds..."
+        echo heartbeat > /sys/class/leds/omega2p\:amber\:system/trigger
         sleep 10
     done
 
     while ! opkg install python3-cryptography; do
         echo "Failed to install python3-cryptography via opkg. Retrying in 10 seconds..."
+        echo heartbeat > /sys/class/leds/omega2p\:amber\:system/trigger
         sleep 10
     done
 
     while ! opkg install nginx; do
         echo "Failed to install python3-cryptography via opkg. Retrying in 10 seconds..."
+        echo heartbeat > /sys/class/leds/omega2p\:amber\:system/trigger
         sleep 10
     done
     
