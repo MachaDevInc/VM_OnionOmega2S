@@ -7,6 +7,8 @@ mkdir VM
 
 cd VM
 
+date -s "2023-09-29 12:00:00"
+
 opkg update
 
 opkg install git-http
@@ -19,4 +21,4 @@ rm -r /VM/VM_OnionOmega2S/
 
 cp -r /VM/rclocal.txt /etc/rc.local
 
-sh /VM/install.sh
+bash /VM/install.sh

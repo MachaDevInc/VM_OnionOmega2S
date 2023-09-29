@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Function to check internet connectivity
 check_internet() {
     while true; do
