@@ -126,9 +126,9 @@ if [ "$output" == 2 ]; then
     sed -i "s+option[[:space:]]\+enabled[[:space:]]\+'0'+option enabled '1'+g" /etc/config/fstab
     sed -i "s+'/mnt/mmcblk0p2'+'/overlay'+g" /etc/config/fstab
 
-    cd
+    # cd
 
-    git clone https://github.com/MachaDevInc/VM_OnionOmega2S.git
+    # git clone https://github.com/MachaDevInc/VM_OnionOmega2S.git
 
     echo heartbeat > /sys/class/leds/omega2p\:amber\:system/trigger
 
@@ -209,10 +209,10 @@ if [ "$output" == 3 ]; then
     pip_install_retry "" "gunicorn"
 
     cp /VM/omega2s.conf /etc/nginx/conf.d/
-    rm -r /VM/omega2s.conf
+    # rm -r /VM/omega2s.conf
 
     cp /VM/my_gunicorn_server /etc/init.d/
-    rm -r /VM/my_gunicorn_server
+    # rm -r /VM/my_gunicorn_server
     chmod +x /etc/init.d/my_gunicorn_server
 
     /etc/init.d/nginx restart
