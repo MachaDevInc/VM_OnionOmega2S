@@ -218,7 +218,14 @@ if [ "$output" == 3 ]; then
     /etc/init.d/nginx restart
     /etc/init.d/my_gunicorn_server enable
 
+    cd ..
+    cd ..
+    cd ..
+    cd ..
     git clone https://github.com/MachaDevInc/esp32s2.git
+    fast-gpio set-output 14
+    fast-gpio set 14 0
+    sleep 1
     python3 -m esptool --chip esp32s2 --port /dev/ttyUSB0 --baud 921600  --before default_reset --after hard_reset write_flash --flash_mode dio --flash_size detect --flash_freq 40m 0x1000 /esp32s2/VM_ESP32-S2.ino.bootloader.bin 0x8000 /esp32s2/VM_ESP32-S2.ino.partitions.bin 0x10000 /esp32s2/VM_ESP32-S2.ino.bin
     rm -r /esp32s2
 
