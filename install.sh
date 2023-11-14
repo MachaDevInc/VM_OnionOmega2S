@@ -208,7 +208,8 @@ if [ "$output" == 3 ]; then
     pip_install_retry "" "Flask-Session"
     pip_install_retry "" "gunicorn"
 
-    cp /VM/omega2s.conf /etc/nginx/conf.d/
+    cp /VM/omega2s.conf /etc/nginx/conf.d/omega2s.conf
+    # cp /VM/omega2s.conf /etc/nginx/conf.d/
     # rm -r /VM/omega2s.conf
 
     cp /VM/my_gunicorn_server /etc/init.d/
