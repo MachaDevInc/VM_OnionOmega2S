@@ -26,6 +26,14 @@ my_payment_method_types = ["card_present"]
 my_capture_method = "automatic"
 # my_capture_method = "manual"
 
+ser.write(str.encode('9'))  # transmit data serially
+time.sleep(0.001)
+# while ser.in_waiting == 0:
+#     pass
+Received = ser.read_until('\n').decode().strip()  # read and strip serial port data
+
+print(repr(Received))  # print raw received data for debugging
+
 while 1:
     received_data = ser.read_until("\n").decode()  # read serial port
     time.sleep(0.001)
