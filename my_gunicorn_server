@@ -7,6 +7,8 @@ STOP=1
 start_service() {
     procd_open_instance
     procd_set_param command gunicorn
+    procd_append_param command --timeout
+    procd_append_param command 1200
     procd_append_param command --chdir
     procd_append_param command /VM/server/
     procd_append_param command --bind
